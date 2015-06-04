@@ -1,0 +1,86 @@
+#!/bin/sh
+
+
+#  driver: acpi-cpufreq
+#  CPUs which run at the same hardware frequency: 0
+#  CPUs which need to have their frequency coordinated by software: 0
+#  maximum transition latency: 10.0 us.
+#  hardware limits: 800 MHz - 2.00 GHz
+#  available frequency steps: 2.00 GHz, 2.00 GHz, 1.90 GHz, 1.80 GHz, 1.70 GHz, 1.60 GHz, 1.50 GHz, 1.40 GHz, 1.30 GHz, 1.20 GHz, 1.10 GHz, 1000 MHz, 900 MHz, 800 MHz
+#  available cpufreq governors: conservative, userspace, powersave, ondemand, performance
+#  current policy: frequency should be within 800 MHz and 2.00 GHz.
+#                  The governor "performance" may decide which speed to use
+#                  within this range.
+#  current CPU frequency is 2.00 GHz.
+#  boost state support:
+#    Supported: yes
+#    Active: yes
+
+# $ ls /sys/devices/system/cpu/cpu0/cpufreq/
+# total 0
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 affected_cpus
+# -r--------. 1 root root 4096 Mar  7 22:33 cpuinfo_cur_freq
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 cpuinfo_max_freq
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 cpuinfo_min_freq
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 cpuinfo_transition_latency
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 related_cpus
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 scaling_available_governors
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 scaling_cur_freq
+# -r--r--r--. 1 root root 4096 Mar  7 22:33 scaling_driver
+# -rw-r--r--. 1 root root 4096 Mar  7 22:33 scaling_governor
+# -rw-r--r--. 1 root root 4096 Mar  7 22:33 scaling_max_freq
+# -rw-r--r--. 1 root root 4096 Mar  7 22:34 scaling_min_freq
+# -rw-r--r--. 1 root root 4096 Mar  7 22:39 scaling_setspeed
+
+# Examples manipulating floating points:
+# $ bar=$(bc -l <<< "800000 / 1000000")
+# $ printf " %0.2f  \n" $bar 
+# 0.80  
+
+
+case ${1} in
+    c*)
+        governor="conservative"
+        ;;
+    u*)
+        governor="userspace"
+        ;;
+    po*|s*)
+        governor="powersave"
+        ;;
+    o*)
+        governor="ondemand"
+        ;;
+    p*)
+        governor="performance"
+        ;;
+    '')
+        governor="NULL"
+        #/usr/bin/cpupower frequency-info
+        for i in /sys/devices/system/cpu/cpu[0-9]* ; do
+            d=$(cat $i/cpufreq/scaling_driver)
+            sg=$(cat $i/cpufreq/scaling_governor)
+            scf=$(cat $i/cpufreq/scaling_cur_freq)
+            ghz=$(bc -l <<< "${scf} / 1000000")
+            cpuid=$(basename ${i})
+# $ bar=$(bc -l <<< "800000 / 1000000")
+# $ printf " %0.2f  \n" $bar 
+            printf "%s: %s, %s, %0.2f GHz\n" $cpuid $d $sg $ghz
+#            cat $i/cpufreq/scaling_governor
+        done
+        ;;
+    *)
+        echo "Unable to determine desired governor."
+        exit -1
+        ;;
+esac
+
+#echo governor is ${governor}.
+#echo arg1 is ${1}.
+
+if [[ "x${governor}" != "xNULL" ]]; then
+    sudo /usr/bin/cpupower frequency-set -g ${governor} >/dev/null 2>&1
+#    if [[ "${1}" =~ "+" ]]; then
+#        sudo sh -c "echo 2.00 GHz > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+#    fi
+fi

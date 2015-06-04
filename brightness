@@ -1,0 +1,38 @@
+#!/bin/bash
+
+bl_dir=/sys/class/backlight/intel_backlight/
+#bl_dir=/sys/class/backlight/acpi_video0
+maxbright=$(cat ${bl_dir}/max_brightness)
+myname=$(/usr/bin/basename $0)
+debugon=false
+
+function usage() {
+    echo "Usage: $myname <0..100>"
+}
+
+function debug() {
+    if [[ X${debugon} == X"true" ]]; then
+	printf "%10s: %s\n" "DEBUG:" "$*"
+    fi
+}
+
+# if [[ $# -eq 0 ]]; then
+#     debug "Reporting current brightness..."
+#     current=$(cat ${bl_dir}/brightness)
+#     let remainder=${maxbright}%${current}
+#     echo $current $remainder
+# fi
+
+printf -v percent %.0f $(bc <<< $1*100)
+debug percent is ${percent}
+if [[ $# -ne 1 ]] || [[ $percent -lt 0 ]] || [[ $percent -gt 100 ]]; then
+    usage
+    current=$(cat ${bl_dir}/brightness)
+    ratio=$(bc -l <<< ${current}/${maxbright})
+    printf "Current brightnes is %d / %d. (%1.2f)\n" ${current} ${maxbright} $ratio
+else
+    debug "max brightness is ${maxbright}."
+    let newbright=${percent}*${maxbright}/100
+    debug "Setting new brightness to $newbright."
+    sudo bash -c "echo ${newbright} > ${bl_dir}/brightness"
+fi

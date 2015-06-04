@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# power-daemon
+#
+# description: Checks AC/Battery status every N seconds and changes brightness and cpu governor accordingly.
+
+# Initial setup...
+. /etc/init.d/functions
+
+DEBUGON='FALSE'
+SLEEP_SECONDS=30
+POWER_SUPPLY_STATUS='UNDEFINED'
+GOVERNOR='UNDEFINED'
+CPU_GOVERNOR_ON_AC_POWER='performance'
+CPU_GOVERNOR_ON_BATTERY='powersave'
+BRIGHTNESS_ON_AC_POWER='100'
+BRIGHTNESS_ON_BATTERY='60'
+MYNAME=$(/bin/basename ${0})
+LOGGER="/usr/bin/logger -t ${MYNAME}"
+
+# Begin main control loop.
+# Check state of power supply.
+PREV_POWER_SUPPLY_STATUS=${POWER_SUPPLY_STATUS}
+POWER_SUPPLY_STATUS=$(cat /sys/class/power_supply/AC/online)
+debug "Current AC online status is ${POWER_SUPPLY_STATUS}."
+
+# If state has changed since last time:
+if [ ${POWER_SUPPLY_STATUS} != ${PREV_POWER_SUPPLY_STATUS} ]; then
+debug "State has changed!"
+
+# Decide which governor should be set.
+# Decide which brightness level should be set.
+case ${POWER_SUPPLY_STATUS} in
+    '0')
+        # Battery
+        GOVERNOR=${CPU_GOVERNOR_ON_BATTERY}
+        BRIGHTNESS=${BRIGHTNESS_ON_BATTERY}
+        debug "Now on battery power. GOVERNOR set to ${GOVERNOR}."
+        debug "GOVERNOR set to ${GOVERNOR}."
+        debug "BRIGHTNESS is set to ${BRIGHTNESS}."
+        ;;
+    '1')
+        # AC Power
+        GOVERNOR=${CPU_GOVERNOR_ON_AC_POWER}
+        BRIGHTNESS=${BRIGHTNESS_ON_AC_POWER}
+        debug "Now on AC power. GOVERNOR set to ${GOVERNOR}."
+        debug "GOVERNOR set to ${GOVERNOR}."
+        debug "BRIGHTNESS is set to ${BRIGHTNESS}."
+        ;;
+    *)
+        # UNDEFINED
+        debug "Status is undefined!"
+        ${LOGGER} "ERROR: Undefined Power Supply State. Exiting..."
+        exit -1
+        ;;
+esac # end case ${POWER_SUPPLY_STATUS}
+
+# Set new governor.
+sudo /usr/bin/cpupower frequency-set -g ${GOVERNOR}
+if [ $? == 0 ]; then
+    ${LOGGER} "Successfully changed CPU governor to ${GOVERNOR}."
+else
+    ${LOGGER} "ERROR: Failed to change CPU governor to ${GOVERNOR}."
+    exit -1
+fi
+
+# Set new brightness.
+sudo /home/jpuellmann/bin/setbrightness ${BRIGHTNESS}
+if [ $? == 0 ]; then
+    ${LOGGER} "Successfully changed display brightness to ${BRIGHTNESS}."
+else
+    ${LOGGER} "ERROR: Failed to change display brightness to ${BRIGHTNESS}."
+    exit -1
+fi
+
+else
+debug "No change in state since last check."
+fi # end if POWER_SUPPLY_STATUS_HAS_CHANGED_SINCE_LAST_TIME
