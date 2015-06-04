@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+# vim: set ft=bash:
+
+if [[ $1 == on ]]; then
+    echo CAPS ON
+    dconf write /org/gnome/desktop/input-sources/xkb-options "['']"
+elif [[ $1 == off ]]; then
+    echo caps disabled
+    dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:ctrl_modifier']"
+else
+    echo no change
+fi
