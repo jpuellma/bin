@@ -8,7 +8,7 @@ InputEncoding=UTF8
 
 [WFClient]
 CPMAllowed=On
-ClientName=WI_Ywq-s_lIQsK8mlHm-
+ClientName=WI_Rp8zh2a0bnYq13fp2
 ProxyFavorIEConnectionSetting=Yes
 ProxyTimeout=30000
 ProxyType=Auto
@@ -21,38 +21,39 @@ Version=2
 VirtualCOMPortEmulation=Off
 
 [ApplicationServers]
-IE 8=
+Internet Explorer 8=
 
-[IE 8]
-Address=10.50.10.227:1494
+[Internet Explorer 8]
+Address=10.90.14.79:1494
 AutologonAllowed=ON
 BrowserProtocol=HTTPonTCP
 CGPAddress=*:2598
-ClearPassword=08D3F264475F8F
-ClientAudio=Off
+ClearPassword=E499A9DC985569
+ClientAudio=On
 DesiredColor=8
+DesiredHRES=1024
+DesiredVRES=768
 DoNotUseDefaultCSL=On
-Domain=\FAEE21496F76DD25
+Domain=\9FB5B9044DFA53A0
 FontSmoothingType=0
-InitialProgram=#IE 8
-LPWD=266
+InitialProgram=#Internet Explorer 8
+LPWD=156
 Launcher=WI
 LocHttpBrowserAddress=!
-LogonTicket=08D3F264475F8FFAEE21496F76DD25
+LogonTicket=E499A9DC9855699FB5B9044DFA53A0
 LogonTicketType=CTXS1
 LongCommandLine=
-NRWD=63
+NRWD=141
 ProxyTimeout=30000
 ProxyType=Auto
 SFRAllowed=Off
 SSLEnable=Off
-ScreenPercent=75
-SessionsharingKey=-3VapdLoH1eY5bmevOKBvuA
-StartIFDCD=1387211520610
-StartSCD=1387211520610
-TRWD=203
+SessionsharingKey=-0OvdwZi4HKB6ibbzFKAMHD
+StartIFDCD=1438696276475
+StartSCD=1438696276475
+TRWD=15
 TWIMode=On
-Title=IE 8
+Title=Internet Explorer 8
 TransportDriver=TCP/IP
 UILocale=en
 WinStationDriver=ICA 3.0
@@ -77,5 +78,6 @@ DriverNameWin32=pdc40n.dll
 DriverNameWin16=pdc56w.dll
 DriverNameWin32=pdc56n.dll
 EOF
+
 
 /opt/Citrix/ICAClient/wfica ${ICAFILE}
