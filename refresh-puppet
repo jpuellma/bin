@@ -14,6 +14,8 @@ puppet03.prd.ewr1.nytimes.com
 puppet04.prd.ewr1.nytimes.com
 puppet05.prd.ewr1.nytimes.com
 puppet06.prd.ewr1.nytimes.com
+puppet01.prd.lga1.nyt.net
+puppet02.prd.lga1.nyt.net
 " \
 'sudo su -s /bin/bash -c "sudo /etc/puppet/scripts/refreshpuppet.sh" deployer'
 
@@ -26,7 +28,5 @@ puppet03.prd.ewr1.nytimes.com
 puppet04.prd.ewr1.nytimes.com
 puppet05.prd.ewr1.nytimes.com
 puppet06.prd.ewr1.nytimes.com
-puppet01.prd.lga1.nyt.net
-puppet02.prd.lga1.nyt.net
 puppet01.prd.lga1.nyt.net
 puppet02.prd.lga1.nyt.net
