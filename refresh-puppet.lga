@@ -1,0 +1,26 @@
+#     Usage:
+#    # pssh -O "LogLevel=quiet" -p 10 -x '-t -t' -h puppet2-hosts.txt -A -l <your_ldap_username> 
+#    #      -i 'sudo su -s /bin/bash -c "sudo /etc/puppet/scripts/refreshpuppet.sh" deployer'
+
+/usr/bin/pssh -x '-q -t -t' \
+-O "LogLevel=quiet" \
+-A \
+-p 10 \
+-i \
+-H "
+puppet01.prd.lga1.nyt.net
+puppet02.prd.lga1.nyt.net
+" \
+'sudo su -s /bin/bash -c "sudo /etc/puppet/scripts/refreshpuppet.sh" deployer'
+
+exit
+puppetca01.prd.ewr1.nytimes.com
+puppetca01.prd.ewr1.nytimes.com
+puppet01.prd.ewr1.nytimes.com
+puppet02.prd.ewr1.nytimes.com
+puppet03.prd.ewr1.nytimes.com
+puppet04.prd.ewr1.nytimes.com
+puppet05.prd.ewr1.nytimes.com
+puppet06.prd.ewr1.nytimes.com
+puppet01.prd.lga1.nyt.net
+puppet02.prd.lga1.nyt.net
