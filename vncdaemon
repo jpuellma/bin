@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+passwdfile="${HOME}/.dotfiles/.vncpasswd"
+x2vnc="/usr/local/bin/x2vnc"
+target="mbp"
+port=5900
+
+nc -w 5 ${target} ${port} <<< "0" || (echo "Error: Couldn't connect." ;  exit 1)
+
+if ! [[ -f ${passwdfile} ]]; then
+    printf "Error: No password file \"%s\"\n" ${passwdfile}
+    exit 1
+fi
+
+while :; do
+    echo here
+    ${x2vnc} \
+        -west \
+        -resurface \
+        -noblank \
+        -passwd ${passwdfile} \
+        ${target}:0
+    sleep 2
+done
