@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Do nothing on Macs...
+if [[ x$(uname -s) == xDarwin ]]; then
+    exit 0
+fi
+
 
 # This temporarily remaps the CapsLock key to a Control key.
 # The keyboard will return to the previous settings after a

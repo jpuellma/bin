@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Variables
+debug=false
+myname=$(basename $0)
+
+# Functions:
+
+f_usage() {
+    echo "$myname usagemsg"
+}
+
+f_disable() {
+    echo "disabling..."
+    sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+}
+
+f_enable() {
+    echo "enabling..."
+    sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+}
+
+f_invalid() {
+    echo "Invalid args \"$*\"."
+    f_usage
+    exit 1
+}
+
+# BEGIN MAIN:
+
+if [[ $# != 1 ]]; then
+    f_invalid $*
+fi
+
+while [[ $# > 0 ]]; do
+    case $1 in
+        disable)
+            f_disable
+        ;;
+        enable)
+            f_enable
+        ;;
+        -h|--help)
+            f_usage
+            exit 0
+        ;;
+        *)
+            f_invalid $*
+        ;;
+    esac
+    shift
+done
+
+
