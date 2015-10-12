@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+#passwdfile="${HOME}/.dotfiles/.vncpasswd"
+x2x="/usr/local/bin/x2x"
+ssh='/bin/ssh'
+target="o790"
+port=22
+
+nc -w 5 ${target} ${port} <<< "0" || (echo "Error: Couldn't connect." ;  exit 1)
+
+#if ! [[ -f ${passwdfile} ]]; then
+#    printf "Error: No password file \"%s\"\n" ${passwdfile}
+#    exit 1
+#fi
+
+while :; do
+    ${ssh} ${target} ${x2x} -to :0 -east
+    sleep 2
+done
