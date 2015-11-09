@@ -12,6 +12,12 @@ if ! [[ -f ${passwdfile} ]]; then
     exit 1
 fi
 
+num=$(pgrep vncdaemon | wc -l)
+if [[ $num > 1 ]]; then
+    echo 'Daemon already running. Exiting.'
+    exit 1
+fi
+
 while :; do
     echo here
     ${x2vnc} \

@@ -13,6 +13,14 @@ nc -w 5 ${target} ${port} <<< "0" || (echo "Error: Couldn't connect." ;  exit 1)
 #    exit 1
 #fi
 
+num=$(pgrep -f xdaemon | wc -l )
+echo $num
+if [[ $num > 2 ]]; then
+    echo 'Daemon already running. Exiting.'
+    exit 1
+fi
+
+
 while :; do
     ${ssh} ${target} ${x2x} -to :0 -east
     sleep 2
