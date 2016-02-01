@@ -2,7 +2,7 @@
 
 passwdfile="${HOME}/.dotfiles/.vncpasswd"
 x2vnc="/usr/local/bin/x2vnc"
-target="mbp"
+target="james-puellmann-8966"
 port=5900
 
 nc -w 5 ${target} ${port} <<< "0" || (echo "Error: Couldn't connect." ;  exit 1)
