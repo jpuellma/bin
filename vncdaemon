@@ -21,7 +21,7 @@ fi
 while :; do
     echo here
     ${x2vnc} \
-        -west \
+        -east \
         -resurface \
         -noblank \
         -passwd ${passwdfile} \
