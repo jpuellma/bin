@@ -1,0 +1,4 @@
+#!/bin/sh
+
+nmcli --ask -p c up NYT\ VPN
+
