@@ -3,7 +3,7 @@
 #passwdfile="${HOME}/.dotfiles/.vncpasswd"
 x2x="/usr/local/bin/x2x"
 ssh='/bin/ssh'
-target="o790"
+target="optiplex790.nyhq.nytint.com"
 port=22
 
 nc -w 5 ${target} ${port} <<< "0" || (echo "Error: Couldn't connect." ;  exit 1)
@@ -22,6 +22,6 @@ fi
 
 
 while :; do
-    ${ssh} ${target} ${x2x} -to :0 -east
+    ${ssh} -t ${target} ${x2x} -to :0 -west
     sleep 2
 done

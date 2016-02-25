@@ -1,4 +1,17 @@
 #!/bin/sh
 
-nmcli --ask -p c up NYT\ VPN
+function usage {
+  printf "Usage: %s <up|down>\n" $(basename $0)
+  exit 0
+}
+
+if [ x"$1" = x'up' ]; then
+  nmcli --ask -p connection up "NYT VPN"
+elif [ x"$1" = x'down' ]; then
+  nmcli -p connection down "NYT VPN"
+else
+  usage
+fi
+
+exit 1
 
