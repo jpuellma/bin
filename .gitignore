@@ -1,7 +1,7 @@
 .gitignore
+ads
 ApacheDirectoryStudio
 CAPSLOCK
-ads
 eyaml
 facter
 fpm
@@ -27,3 +27,19 @@ ruby-rewrite
 sublime_text
 svnmeld
 toggle-inputs
+
+# stupid gems here:
+/aws-rb
+/beaker
+/beaker-answers
+/beaker-hiera
+/beaker-hostgenerator
+/beaker-template
+/fission
+/fog
+/genconfig2
+/generate-api
+/httpclient
+/rbvmomish
+/rubygems-cabin-test
+/serverspec-init
