@@ -1,10 +1,14 @@
 #!/usr/bin/bash
 
 verbose=false
-while getopts :v opt ; do
+unmount=false
+while getopts :uv opt ; do
   case $opt in
     v)
       verbose=true
+      ;;
+    u)
+      unmount=true;
       ;;
     *)
       true
@@ -12,17 +16,15 @@ while getopts :v opt ; do
   esac
 done
 
-for i in /o790/* ; do
-  if  grep -q $i /proc/mounts ; then
-    if $verbose ; then
-      echo $i is already mounted. Remounting.
-    fi
+for i in /o790/* /mnt/J ; do
+  if $unmount ; then
+    $verbose && echo Unmounting $i.
+    sudo umount -l $i
+  elif grep -q $i /proc/mounts ; then
+    $verbose && echo $i is already mounted. Remounting.
     sudo mount -o remount $i
   else
-    if $verbose ; then
-      echo $i is not mounted. Mounting.
-    fi
+    $verbose && echo $i is not mounted. Mounting.
     sudo mount $i
   fi
 done
-
