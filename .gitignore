@@ -4,13 +4,15 @@ CAPSLOCK
 ads
 eyaml
 fpm
+kb
 ksar
+librarian-puppet
 loadcheck-puppet
+minitar
+nohup.out
 npm-registry-sync.sh
 puppet-lint
 rt.sh
 sublime_text
 svnmeld
 toggle-inputs
-nohup.out
-kb
