@@ -1,0 +1,81 @@
+#!/bin/bash
+
+ICAFILE='/tmp/vSphere.ica'
+
+cat > ${ICAFILE} << EOF
+[Encoding]
+InputEncoding=UTF8
+
+[WFClient]
+CPMAllowed=On
+ClientName=WI_HJslO0inRp5_ygdKI
+ProxyFavorIEConnectionSetting=Yes
+ProxyTimeout=30000
+ProxyType=Auto
+ProxyUseFQDN=Off
+RemoveICAFile=yes
+TransparentKeyPassthrough=Local
+TransportReconnectEnabled=On
+VSLAllowed=On
+Version=2
+VirtualCOMPortEmulation=Off
+
+[ApplicationServers]
+VMware vSphere Client=
+
+[VMware vSphere Client]
+Address=10.50.13.239:1494
+AutologonAllowed=ON
+BrowserProtocol=HTTPonTCP
+CGPAddress=*:2598
+ClearPassword=0CED534E43BE0F
+ClientAudio=Off
+DesiredColor=8
+DoNotUseDefaultCSL=On
+Domain=\99C4E826653A7ACF
+FontSmoothingType=0
+InitialProgram=#VMware vSphere Client
+LPWD=312
+Launcher=WI
+LocHttpBrowserAddress=!
+LogonTicket=0CED534E43BE0F99C4E826653A7ACF
+LogonTicketType=CTXS1
+LongCommandLine=
+NRWD=234
+ProxyTimeout=30000
+ProxyType=Auto
+SFRAllowed=Off
+SSLEnable=Off
+ScreenPercent=75
+SessionsharingKey=-0OvdwZi4HKB6ibbzFKAMHD
+StartIFDCD=1396471100140
+StartSCD=1396471100140
+TRWD=78
+TWIMode=On
+Title=VMware vSphere Client
+TransportDriver=TCP/IP
+UILocale=en
+WinStationDriver=ICA 3.0
+
+[Compress]
+DriverNameWin16=pdcompw.dll
+DriverNameWin32=pdcompn.dll
+
+[EncRC5-0]
+DriverNameWin16=pdc0w.dll
+DriverNameWin32=pdc0n.dll
+
+[EncRC5-128]
+DriverNameWin16=pdc128w.dll
+DriverNameWin32=pdc128n.dll
+
+[EncRC5-40]
+DriverNameWin16=pdc40w.dll
+DriverNameWin32=pdc40n.dll
+
+[EncRC5-56]
+DriverNameWin16=pdc56w.dll
+DriverNameWin32=pdc56n.dll
+EOF
+
+/opt/Citrix/ICAClient/wfica ${ICAFILE}
