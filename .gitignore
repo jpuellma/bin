@@ -42,3 +42,9 @@ ruby-rewrite
 sublime_text
 svnmeld
 toggle-inputs
+/rmsgcat
+/rmsgfmt
+/rmsginit
+/rmsgmerge
+/rxgettext
+/Wavebox
