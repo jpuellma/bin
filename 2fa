@@ -1,7 +1,26 @@
 #!/bin/bash
+daemon=false
 source ~/.totp_keys.sh
 IFS=$'\n' sorted=($(sort <<<"${!totp[*]}")); unset IFS
-for i in ${sorted[@]} ; do
-    k=$(oathtool --base32 --totp ${totp[${i}]})
-    echo $k $i
-done
+function do_get_keys() {
+    for i in ${sorted[@]} ; do
+        k=$(oathtool --base32 --totp ${totp[${i}]})
+        echo $k $i
+    done
+}
+
+if [ _${1} == "_-d" ]; then
+    while :; do
+        printf "%s" ${c}
+        do_get_keys
+        c=$(tput clear)
+        sleep 5
+    done
+else
+        do_get_keys
+fi
+
+if [ $1 > 0 ]; then
+    echo Sleeping $1 seconds...
+    sleep $1
+fi
