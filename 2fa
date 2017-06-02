@@ -1,0 +1,7 @@
+#!/bin/bash
+source ~/.totp_keys.sh
+IFS=$'\n' sorted=($(sort <<<"${!totp[*]}")); unset IFS
+for i in ${sorted[@]} ; do
+    k=$(oathtool --base32 --totp ${totp[${i}]})
+    echo $k $i
+done
