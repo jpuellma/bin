@@ -9,12 +9,19 @@ function do_get_keys() {
     done
 }
 
+c=$(tput clear)
 if [ _${1} == "_-d" ]; then
     while :; do
         printf "%s" ${c}
         do_get_keys
-        c=$(tput clear)
         sleep 5
+    done
+elif [ _${1} == "_-r" ]; then
+    printf "${tput_set_bold}Press Enter for new keys.${tput_reset}\n"
+    while read; do
+        printf "%s" ${c}
+        do_get_keys
+        printf "${tput_set_bold}Press Enter for new keys.${tput_reset}"
     done
 else
         do_get_keys
