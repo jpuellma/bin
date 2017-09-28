@@ -1,4 +1,5 @@
 .gitignore
+/Wavebox
 /aws-rb
 /beaker
 /beaker-answers
@@ -11,7 +12,12 @@
 /generate-api
 /httpclient
 /rbvmomish
+/rmsgcat
+/rmsgfmt
+/rmsginit
+/rmsgmerge
 /rubygems-cabin-test
+/rxgettext
 /serverspec-init
 ApacheDirectoryStudio
 CAPSLOCK
@@ -21,6 +27,7 @@ facter
 fpm
 hiera
 htmldiff
+jfrog
 kb
 ksar
 ldiff
@@ -41,10 +48,5 @@ ruby-parse
 ruby-rewrite
 sublime_text
 svnmeld
+terraform
 toggle-inputs
-/rmsgcat
-/rmsgfmt
-/rmsginit
-/rmsgmerge
-/rxgettext
-/Wavebox
