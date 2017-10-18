@@ -16,7 +16,8 @@ while getopts :uv opt ; do
   esac
 done
 
-for i in /o790/* /mnt/J ; do
+# for i in /o790/* /mnt/J ; do
+for i in /o790/* ; do
   if $unmount ; then
     $verbose && echo Unmounting $i.
     sudo umount -l $i
