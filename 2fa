@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 daemon=false
 source ~/.totp_keys.sh
 IFS=$'\n' sorted=($(sort <<<"${!totp[*]}")); unset IFS
