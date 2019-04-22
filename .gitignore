@@ -51,3 +51,4 @@ svnmeld
 terraform
 toggle-inputs
 .idea
+*.bak
